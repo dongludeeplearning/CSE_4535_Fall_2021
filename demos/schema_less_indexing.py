@@ -3,11 +3,13 @@ import pysolr
 import requests
 
 CORE_NAME = "IRF21_class_demo"
-AWS_IP = "localhost"
+AWS_IP = "18.118.216.164"
 
 
-def delete_core(core=CORE_NAME):
-    print(os.system('sudo su - solr -c "/opt/solr/bin/solr delete -c {core}"'.format(core=core)))
+
+
+#def delete_core(core=CORE_NAME):
+    #print(os.system('sudo su - solr -c "/opt/solr/bin/solr delete -c {core}"'.format(core=core)))
 
 
 def create_core(core=CORE_NAME):
