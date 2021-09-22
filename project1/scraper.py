@@ -4,11 +4,10 @@ Institute: University at Buffalo
 '''
 
 import json
-import datetime
 import pandas as pd
 from twitter import Twitter
 from tweet_preprocessor import TWPreprocessor
-from indexer import Indexer
+#from indexer import Indexer
 
 reply_collection_knob = False
 
@@ -36,59 +35,67 @@ def read_file(type, id):
 
 def main():
     config = read_config()
-    indexer = Indexer()
+    #indexer = Indexer()
     twitter = Twitter()
 
     pois = config["pois"]
     keywords = config["keywords"]
 
-    for i in range(len(pois)):
-        if pois[i]["finished"] == 0:
-            print(f"---------- collecting tweets for poi: {pois[i]['screen_name']}")
+    # print(len(pois))
+    # print(len(keywords))
+    #print(keywords[1]["name"])
 
-            raw_tweets = twitter.get_tweets_by_poi_screen_name()  # pass args as needed
-
-            processed_tweets = []
-            for tw in raw_tweets:
-                processed_tweets.append(TWPreprocessor.preprocess(tw))
-
-            indexer.create_documents(processed_tweets)
-
-            pois[i]["finished"] = 1
-            pois[i]["collected"] = len(processed_tweets)
-
-            write_config({
-                "pois": pois, "keywords": keywords
-            })
-
-            save_file(processed_tweets, f"poi_{pois[i]['id']}.pkl")
-            print("------------ process complete -----------------------------------")
+    # for i in range(len(pois)):
+    #     if pois[i]["finished"] == 0:
+    #         print(f"---------- collecting tweets for poi: {pois[i]['screen_name']}")
+    #         screen_name=pois[i]['screen_name']
+    #         raw_tweets = twitter.get_tweets_by_poi_screen_name(screen_name)  # pass args as needed
+    #
+    #         processed_tweets = []
+    #         for tw in raw_tweets:
+    #             processed_tweets.append(TWPreprocessor.preprocess_poi(tw))
+    #
+    #         #indexer.create_documents(processed_tweets)
+    #
+    #         pois[i]["finished"] = 1
+    #         pois[i]["collected"] = len(processed_tweets)
+    #
+    #         write_config({
+    #             "pois": pois, "keywords": keywords
+    #         })
+    #
+    #         save_file(processed_tweets, f"poi_{pois[i]['id']}.pkl")
+    #         print("------------ process complete -----------------------------------")
 
     for i in range(len(keywords)):
-        if keywords[i]["finished"] == 0:
-            print(f"---------- collecting tweets for keyword: {keywords[i]['name']}")
+        if i > 27:
+            if keywords[i]["finished"] == 0:
+                print(i)
+                print(f"---------- collecting tweets for keyword: {keywords[i]['name']}")
 
-            raw_tweets = twitter.get_tweets_by_lang_and_keyword()  # pass args as needed
+                key = keywords[i]['name']
+                raw_tweets = twitter.get_tweets_by_lang_and_keyword(key)  # pass args as needed
 
-            processed_tweets = []
-            for tw in raw_tweets:
-                processed_tweets.append(TWPreprocessor.preprocess(tw))
+                processed_tweets = []
+                for tw in raw_tweets:
+                    processed_tweets.append(TWPreprocessor.preprocess_keyword(tw))
 
-            indexer.create_documents(processed_tweets)
+                    #indexer.create_documents(processed_tweets)
 
-            keywords[i]["finished"] = 1
-            keywords[i]["collected"] = len(processed_tweets)
+                keywords[i]["finished"] = 1
+                keywords[i]["collected"] = len(processed_tweets)
 
-            write_config({
-                "pois": pois, "keywords": keywords
-            })
+                write_config({
+                        "pois": pois, "keywords": keywords
+                })
 
-            save_file(processed_tweets, f"keywords_{keywords[i]['id']}.pkl")
+                save_file(processed_tweets, f"keywords_{keywords[i]['id']}.pkl")
 
-            print("------------ process complete -----------------------------------")
+                print("------------ process complete -----------------------------------")
 
     if reply_collection_knob:
         # Write a driver logic for reply collection, use the tweets from the data files for which the replies are to collected.
+
 
         raise NotImplementedError
 

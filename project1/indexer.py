@@ -44,6 +44,8 @@ class Indexer:
         Define all the fields that are to be indexed in the core. Refer to the project doc for more details
         :return:
         '''
+
+
         raise NotImplementedError
 
 
