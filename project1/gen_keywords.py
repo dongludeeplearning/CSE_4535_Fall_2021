@@ -11,123 +11,10 @@ dict={
       "count": 500,
       "finished": 0,
       "reply_finished": 0
-    },{
-      "id": 2,
-      "screen_name": "CDCgov",
-      "lang": "en",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
-    },{
-      "id": 3,
-      "screen_name": "KamalaHarris",
-      "lang": "en",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
-    },{
-      "id": 4,
-      "screen_name": "CDCDirector",
-      "lang": "en",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
-    },{
-      "id": 5,
-      "screen_name": "BarackObama",
-      "lang": "en",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
-    },{
-      "id": 6,
-      "screen_name": "narendramodi",
-      "lang": "hi",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
-    },{
-      "id": 7,
-      "screen_name": "MVenkaiahNaidu",
-      "lang": "hi",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
-    },{
-      "id": 8,
-      "screen_name": "MoHFW_INDIA",
-      "lang": "hi",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
-    },{
-    #   "id": 9,
-    #   "screen_name": "DghsIndia",  #The Directorate General of Health Services
-    #   "lang": "hi",
-    #   "count": 500,
-    #   "finished": 0,
-    #   "reply_finished": 0
-    # },{
-      "id": 10,
-      "screen_name": "ddgtb2017",
-      "lang": "hi",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
-    },{
-      "id": 11,
-      "screen_name": "lopezobrador_",
-      "lang": "es",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
-    },{
-      "id": 12,
-      "screen_name": "EPN",  # pre president
-      "lang": "es",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
-    },{
-      "id": 13,
-      "screen_name": "COFEPRIS",
-      "lang": "es",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
-    },{
-      "id": 14,
-      "screen_name": "HLGatell",
-      "lang": "es",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
-    },{
-      "id": 15,
-      "screen_name": "JACVillalobos",   # SSalud_mx
-      "lang": "es",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
-    },{
-      "id": 16,
-      "screen_name": "SSalud_mx",   # SSalud_mx
-      "lang": "es",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
-    },{
-      "id": 17,
-      "screen_name": "WHO",
-      "lang": "en",
-      "count": 500,
-      "finished": 0,
-      "reply_finished": 0
     }
-  ],
-###  put vaccine in front of the covid related
-## covid19 vaccine  related
-  "keywords": [
+    ],
+
+"keywords": [
    {
       "id": 1,
       "name": 'vaccine mandate',
@@ -1101,7 +988,7 @@ dict={
       "lang": "es",
       "finished": 0
     }
-
+]
     # {
     #   "id": 21,
     #   "name": "#vacunada",
@@ -1414,19 +1301,19 @@ dict={
   #     "country": "MEXICO",
   #     "finished": 0
   #   }
-  ]
+
 }
 
-with open('config.json', 'w') as outfile:
+with open('config_key.json', 'w') as outfile:
     json.dump(dict, outfile)
 
-# with open('config.json', 'r') as outfile:
-#     config = json.load(outfile)
+with open('config_key.json', 'r') as outfile:
+     config_key = json.load(outfile)
 # #
-# print(len(config))
+#print(len(config_key))
 # pois = config["pois"]
-# keyword = config["keywords"]
-# print(len(pois),len(keyword))
+keyword = config_key["keywords"]
+print(len(keyword))
 
 # for i in range(len(keyword)):
 #    print(keyword[i]['name'])

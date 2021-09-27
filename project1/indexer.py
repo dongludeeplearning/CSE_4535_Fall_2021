@@ -32,9 +32,9 @@ class Indexer:
         self.solr_url = f'http://{AWS_IP}:8983/solr/'
         self.connection = pysolr.Solr(self.solr_url + CORE_NAME, always_commit=True, timeout=5000000)
 
-    def do_initial_setup(self):
-        delete_core()
-        create_core()
+    # def do_initial_setup(self):
+    #     delete_core()
+    #     create_core()
 
     def create_documents(self, docs):
         print(self.connection.add(docs))
@@ -44,12 +44,104 @@ class Indexer:
         Define all the fields that are to be indexed in the core. Refer to the project doc for more details
         :return:
         '''
-
-
-        raise NotImplementedError
+        data = {
+            "add-field": [
+                {
+                    "name": "country",
+                    "type": "string",
+                    "multiValued": False
+                }, {
+                    "name": "tweet_lang",
+                    "type": "string",
+                    "multiValued": False
+                },
+                {
+                    "name": "tweet_text",
+                    "type": "text_general",
+                    "multiValued": False
+                },
+                {
+                    "name": "text_en",
+                    "type": "text_en",
+                    "multiValued": False
+                },
+                {
+                    "name": "text_hi",
+                    "type": "text_hi",
+                    "multiValued": False
+                },
+                {
+                    "name": "text_es",
+                    "type": "text_es",
+                    "multiValued": False
+                },
+                {
+                    "name": "tweet_date",
+                    "type": "pdate",
+                    "multiValued": False
+                },
+                {
+                    "name": "verified",
+                    "type": "boolean",
+                    "multiValued": False
+                },
+                {
+                    "name": "poi_id",
+                    "type": "plong",
+                    "multiValued": False
+                },
+                {
+                    "name": "poi_name",
+                    "type": "string",
+                    "multiValued": False
+                },
+                {
+                    "name": "replied_to_tweet_id",
+                    "type": "plong",
+                    "multiValued": False
+                },
+                {
+                    "name": "replied_to_user_id",
+                    "type": "plong",
+                    "multiValued": False
+                },
+                {
+                    "name": "reply_text",
+                    "type": "text_general",
+                    "multiValued": False
+                },
+                {
+                    "name": "hashtags",
+                    "type": "strings",
+                    "multiValued": True
+                },
+                {
+                    "name": "mentions",
+                    "type": "strings",
+                    "multiValued": True
+                },
+                {
+                    "name": "tweet_urls",
+                    "type": "strings",
+                    "multiValued": True
+                },
+                {
+                    "name": "tweet_emoticons",
+                    "type": "strings",
+                    "multiValued": True
+                },
+                {
+                    "name": "geolocation",
+                    "type": "strings",
+                    "multiValued": True
+                },
+            ]
+        }
+        print(requests.post(self.solr_url + CORE_NAME + "/schema", json=data).json())
+        # raise NotImplementedError
 
 
 if __name__ == "__main__":
     i = Indexer()
-    i.do_initial_setup()
+    # i.do_initial_setup()
     i.add_fields()
